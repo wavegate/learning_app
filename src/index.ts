@@ -33,6 +33,15 @@ app.get("/user", async (req: Request, res: Response) => {
   }
 });
 
+app.delete("/user", async (req: Request, res: Response) => {
+  try {
+    await User.deleteMany({});
+    return res.json({ message: "Users deleted." });
+  } catch (error) {
+    return res.json({ error: error });
+  }
+});
+
 app.get("*", (req: Request, res: Response) => {
   return res.json({ message: "Request received and returned." });
 });

@@ -1,4 +1,5 @@
 import express, { Request, Response } from "express";
+import User from "./models/UserModel";
 
 const app = express();
 
@@ -12,6 +13,16 @@ mongoose.connect(process.env.MONGODB_URI!);
 app.use(express.json());
 
 // add our routes
+
+app.get("/user", async (req: Request, res: Response) => {
+  try {
+    await User.create({ email: "email@email.com", password: "testpassword" });
+    return res.json({ message: "User created." });
+  } catch (error) {
+    return res.json({ error: error });
+  }
+});
+
 app.get("*", (req: Request, res: Response) => {
   return res.json({ message: "Request received and returned." });
 });

@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import User from "./models/UserModel";
+import cors from "cors";
 
 const app = express();
 
@@ -10,6 +11,15 @@ dotenv.config();
 mongoose.connect(process.env.MONGODB_URI!);
 
 // set up middleware
+app.use(
+  cors({
+    origin: [
+      "https://elegant-cupcake-589d5a.netlify.app",
+      "http://localhost:3000",
+    ],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // add our routes
